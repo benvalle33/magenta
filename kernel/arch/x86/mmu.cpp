@@ -1511,3 +1511,39 @@ void x86_mmu_percpu_init(void) {
     efer_msr |= X86_EFER_NXE;
     write_msr(X86_MSR_IA32_EFER, efer_msr);
 }
+
+#if 0
+// OO STUFF
+X86ArchVmAspace::X86ArchVmAspace() {
+}
+
+X86ArchVmAspace::~X86ArchVmAspace() {
+    // TODO: check that we've destroyed the aspace
+}
+
+status_t X86ArchVmAspace::Init(vaddr_t base, size_t size, uint mmu_flags) {
+    return arch_mmu_init_aspace(&data_, base, size, mmu_flags);
+}
+
+status_t X86ArchVmAspace::Destroy() {
+    return arch_mmu_destroy_aspace(&data_);
+}
+
+status_t X86ArchVmAspace::Map(vaddr_t vaddr, paddr_t paddr, size_t count, uint mmu_flags, size_t* mapped) {
+    return arch_mmu_map(&data_, vaddr, paddr, count, mmu_flags, mapped);
+}
+
+status_t X86ArchVmAspace::Unmap(vaddr_t vaddr, size_t count, size_t* unmapped) {
+    return arch_mmu_unmap(&data_, vaddr, count, unmapped);
+}
+
+status_t X86ArchVmAspace::Protect(vaddr_t vaddr, size_t count, uint mmu_flags) {
+    return arch_mmu_protect(&data_, vaddr, count, mmu_flags);
+}
+
+status_t X86ArchVmAspace::Query(vaddr_t vaddr, paddr_t* paddr, uint* mmu_flags) {
+    return arch_mmu_query(&data_, vaddr, paddr, mmu_flags);
+}
+#endif
+
+

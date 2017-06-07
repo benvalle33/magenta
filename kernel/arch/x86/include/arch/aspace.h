@@ -41,3 +41,29 @@ struct arch_aspace {
 
 __END_CDECLS
 
+#if 0
+// XXX move
+#include <kernel/vm/arch_vm_aspace.h>
+
+class X86ArchVmAspace final : public ArchVmAspace {
+public:
+    X86ArchVmAspace();
+    virtual ~X86ArchVmAspace() final;
+
+    DISALLOW_COPY_ASSIGN_AND_MOVE(X86ArchVmAspace);
+
+    virtual status_t Init(vaddr_t base, size_t size, uint mmu_flags);
+    virtual status_t Destroy();
+
+    // main methods
+    virtual status_t Map(vaddr_t vaddr, paddr_t paddr, size_t count, uint mmu_flags, size_t* mapped);
+    virtual status_t Unmap(vaddr_t vaddr, size_t count, size_t* unmapped);
+    virtual status_t Protect(vaddr_t vaddr, size_t count, uint mmu_flags);
+    virtual status_t Query(vaddr_t vaddr, paddr_t* paddr, uint* mmu_flags);
+
+private:
+    arch_aspace data_ = {};
+};
+
+using _ArchVmAspace = X86ArchVmAspace;
+#endif
